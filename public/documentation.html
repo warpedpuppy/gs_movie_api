@@ -3,13 +3,131 @@
 <head>
   <meta charset="utf-8">
   <title>Movie API Documentation</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 <body>
   <div>
-    This project will be the server-side component, using node.js, of a web
-    application that provides users with access to information about different
-    movies, directors, and genres. Users will be able to sign up, update their
-    personal information, and create a list of their favorite movies.
+    <p>
+      This project will be the server-side component, using node.js, of a web
+      application that provides users with access to information about different
+      movies, directors, and genres. Users will be able to sign up, update their
+      personal information, and create a list of their favorite movies. The
+      following funcationalities will be included -
+    </p>
+  </div>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Request</th>
+          <th scope="col">URL</th>
+          <th scope="col">HTTP Method</th>
+          <th scope="col">Request body data format</th>
+          <th scope="col">Response body data format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Return a list of ALL movies to the user</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding titles of all the movies</td>
+        </tr>
+        <tr>
+          <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
+          <td>/movies/[title]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about a single movie, containing description, genre, director, image URL, whether it's featured or not</td>
+        </tr>
+        <tr>
+          <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+          <td>/movies/[genre]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding titles of all the movies in the given genre</td>
+        </tr>
+        <tr>
+          <td>Return data about a director (bio, birth year, death year) by name</td>
+          <td>/directors/[name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about a single director, containing bio, birth year, death year</td>
+        </tr>
+        <tr>
+          <td>Allow new users to register</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>
+            A JSON object holding data about the user, containing username and favorites. Example:
+            <br>
+            <span>{
+            <br>
+            &ensp; username: "JimBo",
+            <br>
+            &ensp; favorites: {
+            <br>
+            &ensp; &ensp; "The Long Goodbye",
+            <br>
+            &ensp; &ensp; "The 49th Parallel"
+            <br>
+            &ensp; &ensp; }
+            <br>
+            }</span>
+          </td>
+          <td>
+            A JSON object holding data about the user that was added, including username, favorites, and an ID. Example:
+            <br>
+            <span>{
+            <br>
+            &ensp; id: "007",
+            <br>
+            &ensp; username: "JimBo",
+            <br>
+            &ensp; favorites: {
+            <br>
+            &ensp; &ensp; "The Long Goodbye",
+            <br>
+            &ensp; &ensp; "The 49th Parallel"
+            <br>
+            &ensp; &ensp; }
+            <br>
+            }</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info (username)</td>
+          <td>/users/[username]</td>
+          <td>PUT</td>
+          <td>None</td>
+          <td>A text message indicating the updated username</td>
+        </tr>
+        <tr>
+          <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
+          <td>/users/[username]/favorites/[title]</td>
+          <td>POST</td>
+          <td>None</td>
+          <td>A text message indicating that the user's favorites have been updated with the new movie</td>
+        </tr>
+        <tr>
+          <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
+          <td>/users/[username]/favorites/[title]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>A text message indicating that the movie has been removed from the user's favorites</td>
+        </tr>
+        <tr>
+          <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</td>
+          <td>/users/[username]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>A text message indicating whether the user was successfully removed</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </body>
 </html>
