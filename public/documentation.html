@@ -34,66 +34,173 @@
           <td>/movies</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding titles of all the movies</td>
+          <td>A JSON object holding titles of all the movies. Example:
+          <br>
+          <span>{
+          <br>
+          &ensp; Title: "Knocked Up",
+          <br>
+          &ensp; Description: "Two young people try to forge a successful relationship based on an accidental pregnancy.",
+          <br>
+          &ensp; Genre: {
+          <br>
+          &ensp; &ensp; Name: "Comedy",
+          <br>
+          &ensp; &ensp; Description: "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."
+          <br>
+          &ensp; },
+          <br>
+          &ensp; Director: {
+          <br>
+          &ensp; &ensp; Name: "Judd Apatow",
+          <br>
+          &ensp; &ensp; Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian.",
+          <br>
+          &ensp; &ensp; Birth: "1967",
+          <br>
+          &ensp; },
+          <br>
+          &ensp; ImagePath: "KnockedUp.png",
+          <br>
+          &ensp; Featured: true
+          <br>
+          }
+          <br>
+          (etc.)</span>
+        </td>
         </tr>
         <tr>
           <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
           <td>/movies/[title]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a single movie, containing description, genre, director, image URL, whether it's featured or not</td>
+          <td>
+            A JSON object holding data about a single movie, containing description, genre, director, image URL, whether it's featured or not. Example:
+            <br>
+            <span>{
+            <br>
+            &ensp; Title: "Knocked Up",
+            <br>
+            &ensp; Description: "Two young people try to forge a successful relationship based on an accidental pregnancy.",
+            <br>
+            &ensp; Genre: {
+            <br>
+            &ensp; &ensp; Name: "Comedy",
+            <br>
+            &ensp; &ensp; Description: "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."
+            <br>
+            &ensp; },
+            <br>
+            &ensp; Director: {
+            <br>
+            &ensp; &ensp; Name: "Judd Apatow",
+            <br>
+            &ensp; &ensp; Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian.",
+            <br>
+            &ensp; &ensp; Birth: "1967",
+            <br>
+            &ensp; },
+            <br>
+            &ensp; ImagePath: "KnockedUp.png",
+            <br>
+            &ensp; Featured: true
+            <br>
+            }
+            </span>
+          </td>
         </tr>
         <tr>
           <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
-          <td>/movies/[genre]</td>
+          <td>/movies/genres/[genre]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding titles of all the movies in the given genre</td>
+          <td>A JSON object holding titles of all the movies in the given genre. Example:
+          <br>
+          <span>{
+          <br>
+          &ensp; Title: "Knocked Up",
+          <br>
+          &ensp; Description: "Two young people try to forge a successful relationship based on an accidental pregnancy.",
+          <br>
+          &ensp; Genre: {
+          <br>
+          &ensp; &ensp; Name: "Comedy",
+          <br>
+          &ensp; &ensp; Description: "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."
+          <br>
+          &ensp; },
+          <br>
+          &ensp; Director: {
+          <br>
+          &ensp; &ensp; Name: "Judd Apatow",
+          <br>
+          &ensp; &ensp; Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian.",
+          <br>
+          &ensp; &ensp; Birth: "1967",
+          <br>
+          &ensp; },
+          <br>
+          &ensp; ImagePath: "KnockedUp.png",
+          <br>
+          &ensp; Featured: true
+          <br>
+          }
+          <br>
+          (etc.)
+        </span>
+        </td>
         </tr>
         <tr>
           <td>Return data about a director (bio, birth year, death year) by name</td>
           <td>/directors/[name]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a single director, containing bio, birth year, death year</td>
+          <td>A JSON object holding data about a single director, containing bio, birth year, death year. Example:
+            <br>
+            <span>{
+            <br>
+            &ensp; Name: "Judd Apatow",
+            <br>
+            &ensp; Bio: "Judd Apatow is an American producer, writer, director, actor and stand-up comedian.",
+            <br>
+            &ensp; Birth: "1967",
+            <br>
+          }</span>
+          </td>
         </tr>
         <tr>
           <td>Allow new users to register</td>
           <td>/users</td>
           <td>POST</td>
           <td>
-            A JSON object holding data about the user, containing username and favorites. Example:
+            A JSON object holding data about the user, containing username, password, email and birthday. Example:
             <br>
             <span>{
             <br>
             &ensp; username: "JimBo",
             <br>
-            &ensp; favorites: {
+            &ensp; Password: "Fredspassword"
             <br>
-            &ensp; &ensp; "The Long Goodbye",
+            &ensp; Email: "fred@fred.com",
             <br>
-            &ensp; &ensp; "The 49th Parallel"
-            <br>
-            &ensp; &ensp; }
+            &ensp; Birthday: "1965-09-07"
             <br>
             }</span>
           </td>
           <td>
-            A JSON object holding data about the user that was added, including username, favorites, and an ID. Example:
+            A JSON object holding data about the user that was added, including username, password, email, birthday, and an ID. Example:
             <br>
             <span>{
             <br>
-            &ensp; id: "007",
+            &ensp; _id: "60f63c57d7eb3f5320cc69b7",
             <br>
             &ensp; username: "JimBo",
             <br>
-            &ensp; favorites: {
+            &ensp; Password: "Fredspassword"
             <br>
-            &ensp; &ensp; "The Long Goodbye",
+            &ensp; Email: "fred@fred.com",
             <br>
-            &ensp; &ensp; "The 49th Parallel"
-            <br>
-            &ensp; &ensp; }
+            &ensp; Birthday: "1965-09-07"
             <br>
             }</span>
           </td>
@@ -103,28 +210,59 @@
           <td>/users/[username]</td>
           <td>PUT</td>
           <td>None</td>
-          <td>A text message indicating the updated username</td>
+          <td>
+            A text message indicating the updated username. Example:
+            <br>
+            <span>Your username was changed to Ogden. Details:
+              <br>
+            {
+            <br>
+            &ensp; Username: "Ogden",
+            <br>
+            &ensp; Password: "FrtlTrtl",
+            <br>
+            &ensp; Email: "Ogden@Nash.com",
+            <br>
+            &ensp; Birthday: new Date("1930-12-12"),
+            <br>
+            &ensp; FavoriteMovies: [ ObjectId("60f1cb077a111c2a24f78e1a"), ObjectId("60f1ccfc7a111c2a24f78e1d") ]
+            <br>
+            }
+            </span>
+          </td>
         </tr>
         <tr>
-          <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
-          <td>/users/[username]/favorites/[title]</td>
+          <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added)</td>
+          <td>/users/[username]/movies/[title]</td>
           <td>POST</td>
           <td>None</td>
-          <td>A text message indicating that the user's favorites have been updated with the new movie</td>
+          <td>
+            A text message indicating that the user's favorites have been updated with the new movie. Example:
+            <br>
+            <span>This movie has been added to your favorites.</span>
+          </td>
         </tr>
         <tr>
-          <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
-          <td>/users/[username]/favorites/[title]</td>
+          <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
+          <td>/users/[username]/movies/[title]</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>A text message indicating that the movie has been removed from the user's favorites</td>
+          <td>
+            A text message indicating that the movie has been removed from the user's favorites. Example:
+            <br>
+            <span>This movie has been removed from your favorites.</span>
+          </td>
         </tr>
         <tr>
-          <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</td>
+          <td>Allow existing users to deregister (showing only a text that a user email has been removed)</td>
           <td>/users/[username]</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>A text message indicating whether the user was successfully removed</td>
+          <td>
+            A text message indicating whether the user was successfully removed. Example:
+            <br>
+            <span>Arbogast was deleted.</span>
+          </td>
         </tr>
       </tbody>
     </table>
