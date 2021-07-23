@@ -1,3 +1,4 @@
+//require('dotenv').config();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -15,11 +16,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 app.use(morgan('common'));
 
 //return a list of ALL movies to the user
 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -33,7 +38,7 @@ app.get('/movies', (req, res) => {
 //Return data (description, genre, director, image URL, whether it’s featured or
 //not) about a single movie by title to the user
 
-app.get('/movies/:MovieID', (req, res) => {
+app.get('/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ _id: req.params.MovieID })
     .then((movie) => {
       res.json(movie);
@@ -46,7 +51,7 @@ app.get('/movies/:MovieID', (req, res) => {
 
 //Return data about a genre (description) by name/title (e.g., “Thriller”)
 
-app.get('/movies/genres/:genre', (req, res) => {
+app.get('/movies/genres/:genre', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find({ 'Genre.Name': req.params.genre })
     .then((movies) => {
       res.json(movies);
@@ -59,7 +64,7 @@ app.get('/movies/genres/:genre', (req, res) => {
 
 //Return  data about a director (bio, birth year, death year) by name
 
-app.get('/directors/:name', (req, res) => {
+app.get('/directors/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ 'Director.Name': req.params.name })
     .then((movies) => {
       res.json(movies.Director);
@@ -116,7 +121,7 @@ app.post('/users', (req, res) => {
   (required)
   Birthday: Date
 }*/
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
@@ -137,7 +142,7 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Add a movie to a user's list of favorites. Note that :MovieID needs to be "89eaf..." not "ObjectID(89eaf...)"
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
+app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
      $push: { FavoriteMovies: req.params.MovieID }
    },
@@ -154,7 +159,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 // Remove a movie from a user's list of favorites. Note that :MovieID needs to be "89eaf..." not "ObjectID(89eaf...)"
-app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
      $pull: { FavoriteMovies: req.params.MovieID }
    },
@@ -171,7 +176,7 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 // Delete a user by username
-app.delete('/users/:Username', (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
@@ -187,7 +192,7 @@ app.delete('/users/:Username', (req, res) => {
 });
 
 // Get all users
-app.get('/users', (req, res) => {
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find()
     .then((users) => {
       res.status(201).json(users);
@@ -199,7 +204,7 @@ app.get('/users', (req, res) => {
 });
 
 // Get a user by username
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
